@@ -23,6 +23,7 @@
 \usepackage[framemethod=TikZ]{mdframed}
 \usepackage{hyperref}
 \usepackage{lipsum}
+\usepackage{minted}
 
 
 % Define section, subsection and subsubsection font size and color
@@ -84,9 +85,10 @@
 
 % Lists a code inside of a blue border
 \definecolor{BaliHaiColor}{HTML}{7CA1B3}
-\newenvironment{codelisting}
-{\footnotesize\mdframed[middlelinewidth=0.5pt, middlelinecolor=BaliHaiColor, skipabove=15pt]\verbatim}
-{\endverbatim\endmdframed\vspace{12pt}\normalsize}
+\newminted[codelisting]{objective-c}{tabsize=4, fontsize=\footnotesize}
+\usemintedstyle{xcode}
+\BeforeBeginEnvironment{codelisting}{\footnotesize\mdframed[middlelinewidth=0.5pt, middlelinecolor=BaliHaiColor, skipabove=15pt]}%
+\AfterEndEnvironment{codelisting}{\endmdframed\vspace{12pt}\normalsize}
 
 
 % Lists text inside yellow border
@@ -167,7 +169,7 @@
         if (error != NULL)
             *error = [NSError errorWithDomain:ExampleDomain
                                          code:1001
-                                     userInfo:@{NSLocalizedDescriptionKey: @"User name must have..."}];
+                                     userInfo:@{NSLocalizedDescriptionKey: @"User has to..."}];
         return NO;
     }
    
@@ -175,7 +177,7 @@
         if (error != NULL)
             *error = [NSError errorWithDomain:ExampleDomain
                                          code:1002
-                                     userInfo:@{NSLocalizedDescriptionKey: @"Password must have..."}];
+                                     userInfo:@{NSLocalizedDescriptionKey: @"Password has to..."}];
         return NO;
    
     // logging in code
