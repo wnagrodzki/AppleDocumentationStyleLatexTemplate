@@ -83,12 +83,20 @@
 \linespread{1.3}
 
 
-% Lists a code inside of a blue border
+% Lists Objective-C code inside of a blue border
 \definecolor{BaliHaiColor}{HTML}{7CA1B3}
-\newminted[codelisting]{objective-c}{tabsize=4, fontsize=\footnotesize}
+\newminted[objclisting]{objective-c}{tabsize=4, fontsize=\footnotesize}
 \usemintedstyle{xcode}
-\BeforeBeginEnvironment{codelisting}{\footnotesize\mdframed[middlelinewidth=0.5pt, middlelinecolor=BaliHaiColor, skipabove=15pt]}%
-\AfterEndEnvironment{codelisting}{\endmdframed\vspace{12pt}\normalsize}
+\BeforeBeginEnvironment{objclisting}{\footnotesize\mdframed[middlelinewidth=0.5pt, middlelinecolor=BaliHaiColor, skipabove=15pt]}%
+\AfterEndEnvironment{objclisting}{\endmdframed\vspace{12pt}\normalsize}
+
+
+% Lists Swift code inside of a blue border
+\definecolor{BaliHaiColor}{HTML}{7CA1B3}
+\newminted[swiftlisting]{swift}{tabsize=4, fontsize=\footnotesize}
+\usemintedstyle{xcode}
+\BeforeBeginEnvironment{swiftlisting}{\footnotesize\mdframed[middlelinewidth=0.5pt, middlelinecolor=BaliHaiColor, skipabove=15pt]}%
+\AfterEndEnvironment{swiftlisting}{\endmdframed\vspace{12pt}\normalsize}
 
 
 % Lists text inside yellow border
@@ -159,10 +167,10 @@
 \subsubsection{Sed commodo posuere pede. Mauris ut est}
 \lipsum[7]
 
-% Presenting code listing
+% Presenting Objective-C code listing
 \section{Fusce sed justo eu urna porta tincidunt.}
 
-\begin{codelisting}
+\begin{objclisting}
 - (BOOL)loginUser:(NSString *)user withPassword:(NSString *)password error:(NSError **)error
 {
     if (user.length < 6) {
@@ -182,22 +190,22 @@
    
     // logging in code
 }
-\end{codelisting}
+\end{objclisting}
 
 \subsection{Aenean faucibus pede eu ante}
 
-\begin{codelisting}
+\begin{objclisting}
 typedef NS_ENUM(NSInteger, Enumeration) {
     EnumerationInvalid,
     EnumerationA,
     EnumerationB,
     EnumerationC,
 };
-\end{codelisting}
+\end{objclisting}
 
 \subsubsection{Quisque egestas wisi eget nunc}
 
-\begin{codelisting}
+\begin{objclisting}
 + (NSCalendar *)currentCalendar
 {
     NSMutableDictionary *threadDictionary = [[NSThread currentThread] threadDictionary];
@@ -209,13 +217,13 @@ typedef NS_ENUM(NSInteger, Enumeration) {
     }
     return currentCalendar;
 }
-\end{codelisting}
+\end{objclisting}
 
 \subsection{Pellentesque habitant morbi tristique senectus et netus}
 
 \lipsum[8]
 
-\begin{codelisting}
+\begin{objclisting}
 static void * const kNavigationItemKey = (void *)&kNavigationItemKey;
 
 - (void)setNavigationItem:(UINavigationItem *)navigationItem
@@ -235,70 +243,164 @@ static void * const kNavigationItemKey = (void *)&kNavigationItemKey;
     }
     return navigationItem;
 }
-\end{codelisting}
+\end{objclisting}
 
 \lipsum[9]
+
+% Presenting Swift code listing
+\section{Aliquam arcu neque, ornare in, ullamcorper quis}
+
+\begin{swiftlisting}
+struct SilentCondition<T: OperationCondition>: OperationCondition 
+{
+    let condition: T
+    
+    static var name: String { return "Silent<\(T.name)>" }
+    
+    static var isMutuallyExclusive: Bool { return T.isMutuallyExclusive }
+    
+    init(condition: T) {
+        self.condition = condition
+    }
+    
+    func dependencyForOperation(operation: Operation) -> NSOperation? {
+        // Returning nil means we will never a dependency to be generated.
+        return nil
+    }
+    
+    func evaluateForOperation(operation: Operation, completion: OperationConditionResult -> Void) {
+        condition.evaluateForOperation(operation, completion: completion)
+    }
+}
+}\end{swiftlisting}
+
+\subsection{Nam elementum ullamcorper leo. Morbi dui.}
+
+\begin{swiftlisting}
+switch directionToHead {
+case .North:
+    println("Lots of planets have a north")
+case .South:
+    println("Watch out for penguins")
+case .East:
+    println("Where the sun rises")
+case .West:
+    println("Where the skies are blue")
+}
+\end{swiftlisting}
+
+\subsubsection{Morbi eros pede, suscipit ac, varius vel, egestas non, eros}
+
+\begin{swiftlisting}
+private func ~=(lhs: (String, Int, String?), rhs: (String, Int, String?)) -> Bool {
+    return lhs.0 ~= rhs.0 && lhs.1 ~= rhs.1 && lhs.2 == rhs.2
+}
+
+private func ~=(lhs: (String, OperationErrorCode, String), rhs: (String, Int, String?)) -> Bool {
+    return lhs.0 ~= rhs.0 && lhs.1.rawValue ~= rhs.1 && lhs.2 == rhs.2
+}
+\end{swiftlisting}
+
+\subsection{Suspendisse vitae elit}
+
+\lipsum[10]
+
+\begin{swiftlisting}
+class EarthquakeTableViewCell: UITableViewCell {
+    // MARK: Properties
+
+    @IBOutlet var locationLabel: UILabel!
+    @IBOutlet var timestampLabel: UILabel!
+    @IBOutlet var magnitudeLabel: UILabel!
+    @IBOutlet var magnitudeImage: UIImageView!
+    
+    // MARK: Configuration
+    
+    func configure(earthquake: Earthquake) {
+        timestampLabel.text = Earthquake.timestampFormatter.stringFromDate(earthquake.timestamp)
+
+        magnitudeLabel.text = Earthquake.magnitudeFormatter.stringFromNumber(earthquake.magnitude)
+        
+        locationLabel.text = earthquake.name
+        
+        let imageName: String
+        
+        switch earthquake.magnitude {
+            case 0..<2: imageName = ""
+            case 2..<3: imageName = "2.0"
+            case 3..<4: imageName = "3.0"
+            case 4..<5: imageName = "4.0"
+            default:    imageName = "5.0"
+        }
+
+        magnitudeImage.image = UIImage(named: imageName)
+    }
+}
+\end{swiftlisting}
+
+\lipsum[11]
+
 
 % Presenting tip listing
 \section{Cum sociis natoque penatibus et magnis dis parturient montes}
 
 \begin{tiplisting}
-\lipsum[10-11]
+\lipsum[12-13]
 \end{tiplisting}
 
 \subsection{Fusce elementum convallis neque}
 
 \begin{tiplisting}
-\lipsum[12-13]
+\lipsum[14-15]
 \end{tiplisting}
 
 \subsubsection{Etiam ac leo a risus tristique nonummy}
 
 \begin{tiplisting}
-\lipsum[14]
+\lipsum[16]
 \end{tiplisting}
 
 \subsection{Nulla in ipsum. Praesent eros nulla, congue vitae}
 
-\lipsum[15]
+\lipsum[17]
 
 \begin{tiplisting}
-\lipsum[16]
+\lipsum[18]
 \end{tiplisting}
 
-\lipsum[17]
+\lipsum[19]
 
 % Presenting important note listing
 \section{Phasellus facilisis ipsum quis ante}
 
 \begin{importantlisting}
-\lipsum[18-19]
+\lipsum[20-21]
 \end{importantlisting}
 
 \subsection{Nullam urna nulla, ullamcorper in, interdum sit amet}
 
 \begin{importantlisting}
-\lipsum[20]
+\lipsum[22]
 \end{importantlisting}
 
 \subsubsection{Suspendisse congue nisl eu elit}
 
 \begin{importantlisting}
-\lipsum[21]
+\lipsum[23]
 \end{importantlisting}
 
 \subsection{Etiam suscipit aliquam arcu}
 
-\lipsum[22]
-
-\begin{importantlisting}
-\lipsum[23]
-\end{importantlisting}
-
 \lipsum[24]
 
+\begin{importantlisting}
+\lipsum[25]
+\end{importantlisting}
+
+\lipsum[26]
+
 % Presenting hyperlinks
-\section{Vestibulum ante ipsum primis in faucibus orci luctus}
+\section{Vestibulum ante ipsum primis in faucibus orci}
 
 \href{https://github.com/izydor86/AppleDocumentationStyleLatexTemplate}{Vivamus} eu tellus sed tellus consequat suscipit. Nam orci orci, malesuada id, gravida nec, ultricies vitae, erat. Donec risus turpis, luctus sit amet, interdum quis, porta sed, ipsum. Suspendisse condi- mentum, tortor at egestas posuere, neque metus tempor orci, et tincidunt urna nunc a purus. Sed facilisis blandit tellus. Nunc risus sem, suscipit nec, eleifend quis, cursus quis, \href{https://github.com/izydor86/AppleDocumentationStyleLatexTemplate}{libero}. Curabitur et dolor. Sed vitae sem. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas ante. Duis ullamcorper enim. Donec tristique enim eu leo. Nullam mo- lestie elit eu dolor. \href{https://github.com/izydor86/AppleDocumentationStyleLatexTemplate}{Nullam bibendum}, turpis vitae tristique gravida, quam sapien tempor lectus, quis pretium tellus purus ac quam. Nulla facilisi.
 
