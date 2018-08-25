@@ -1,5 +1,5 @@
-Overview
-====================================
+# Overview
+
 This LaTeX template will let you create beautiful PDF documents inspired by Apple documentations. 
 - [ ] Title page
 - [x] Table of contents
@@ -7,26 +7,26 @@ This LaTeX template will let you create beautiful PDF documents inspired by Appl
 - [x] Objective-C code listing with syntax highlighting
 - [x] Swift code listing with syntax highlighting
 
-How To Get Started
-====================================
+# How To Get Started
 
 1. Install [MacTex](https://www.github.com)
-  1. Check if there are any updates for TeXShop and TeX Live Utility applications
-  2. Launch TeX Live Utility and update all packages
-2. Integrate the template with TeXShop
-  1. Navigate to ~/Library/TeXShop/Engines
-  2. Open XeLaTeX.engine file
-  3. Add two additional parameters -shell-escape -interaction=nonstopmode
+    1. Check if there are any updates for TeXShop and TeX Live Utility applications
+    2. Launch TeX Live Utility and update all packages
 3. Install [Pygments](http://pygments.org)
-  1. sudo easy_install Pygments
+    1. `$ easy_install --user Pygments`
+    2. `ln -s /Users/<user>/Library/Python/2.7/bin/pygmentize /usr/local/bin/pygmentize`
+2. Integrate the template with TeXShop
+    1. Navigate to ~/Library/TeXShop/Engines
+    2. Open XeLaTeX.engine file
+    3. Add two additional parameters `-shell-escape -interaction=nonstopmode`
 
-In case of commandline compilation, use xelatex
+
+In case of commandline compilation, use xelatex:
 ```
 xelatex  -file-line-error -synctex=1 -shell-escape -interaction=nonstopmode "File.tex"
 ```
 
-Screenshots
-====================================
+# Screenshots
 
 ![Table Of Contents](https://raw.github.com/wnagrodzki/AppleDocumentationStyleLatexTemplate/master/Screen%20Shots/TOC.png)
  
